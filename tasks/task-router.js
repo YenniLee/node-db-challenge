@@ -15,6 +15,18 @@ router.get('/', (req, res) => {
            });
 });
 
+router.post('/', (req, res) => {
+    const task = req.body;
+    console.log(task)
+    Task.addTask(task)
+           .then(newTask => {
+               res.status(201).json(newTask);
+           })
+           .catch(err => {
+               res.status(500).json({ message: `Unable to add resource. ${err}` });
+           }); 
+});
 
+  
 
 module.exports = router;

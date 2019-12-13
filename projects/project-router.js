@@ -32,5 +32,21 @@ router.post('/', (req, res) => {
            }); 
 });
 
+router.post('/:id/tasks', (req, res) => {
+    const task = req.body;
+    const { id } = req.params;
+
+    Task.addTask(task, id)
+           .then(addedTask => {
+               res.status(201).json(addedTask);
+           })
+           .catch(err => {
+               res.status(500).json({
+                   message: 'An error occurred while trying to add the task to the database',
+                   error: err
+               });
+           }); 
+});
+
 
 module.exports = router;
