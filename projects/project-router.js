@@ -9,15 +9,19 @@ const router = express.Router();
 router.get('/', (req, res) => {
     Project.getProjects()
            .then(projects => {
-               res.status(200).json(projects);
-           })
+            const convertedProjects = [...projects].map( project => {
+                project.completed = Boolean(project.completed);
+                return project;
+              });
+              res.status(200).json(convertedProjects);
+            })
            .catch(err => {
                res.status(500).json({ message: `Unable to get project. ${err}` });
            });
 });
 
 router.get('/:id', (req, res) => {
-    res.json(req.project);
+    res.status(200).json(req.project);
 });
 
 router.post('/', (req, res) => {

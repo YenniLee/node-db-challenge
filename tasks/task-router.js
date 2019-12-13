@@ -8,8 +8,12 @@ const router = express.Router();
 router.get('/', (req, res) => {
     Task.getTasks()
            .then(tasks => {
-               res.status(200).json(tasks);
-           })
+            const convertedTasks = [...tasks].map( task => {
+                task.completed = Boolean(task.completed);
+                return task;
+              });
+              res.status(200).json(convertedTasks); 
+            })
            .catch(err => {
                res.status(500).json({ message: `Unable to get tasks. ${err}` });
            });
