@@ -45,10 +45,7 @@ router.post('/:id/tasks', (req, res) => {
                res.status(201).json(addedTask);
            })
            .catch(err => {
-               res.status(500).json({
-                   message: 'An error occurred while trying to add the task to the database',
-                   error: err
-               });
+               res.status(500).json({ message: 'An error occurred while trying to add the task to the database' });
            }); 
 });
 
